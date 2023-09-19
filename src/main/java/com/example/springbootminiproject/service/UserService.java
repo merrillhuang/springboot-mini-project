@@ -13,6 +13,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Uses SQL statement to find a User from the database by their email address.
+     * @param emailAddress The email address passed in by the HttpRequest
+     * @return The User that has the corresponding email address.
+     */
     public User findUserByEmailAddress(String emailAddress) {
         return userRepository.findUserByEmailAddress(emailAddress);
     }
