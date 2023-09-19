@@ -38,6 +38,11 @@ public class UserController {
         return userService.createUser(userObject);
     }
 
+    /**
+     * Endpoint to log in a User
+     * @param loginRequest The Http request, contains an email address and password to be matched to entry in database
+     * @return 200 Ok if log in is successful, 401 Unauthorized if not.
+     */
     @PostMapping(path = "/login")   //http://localhost:9094/auth/users/login/
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
         Optional<String> jwtToken = userService.loginUser(loginRequest);
