@@ -22,4 +22,15 @@ public class User {
     @Column
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;       //represents each user's password, is write-only, not visible in database
+
+    //default constructor
+    public User() {
+    }
+
+    public User(Long id, String username, String emailAddress, String password) {
+        this.id = id;
+        this.username = username;
+        this.emailAddress = emailAddress;
+        this.password = password;
+    }
 }
