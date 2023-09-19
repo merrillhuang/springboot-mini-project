@@ -27,7 +27,7 @@ public class User {
     public User() {
     }
 
-    //Initializes all the fields
+    // Constructor that initializes all the fields
     public User(Long id, String username, String emailAddress, String password) {
         this.id = id;
         this.username = username;
