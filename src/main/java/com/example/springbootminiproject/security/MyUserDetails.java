@@ -15,6 +15,7 @@ public class MyUserDetails implements UserDetails {
         this.user = user;
     }
 
+    // The roles that this User has.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new HashSet<>();
@@ -30,21 +31,25 @@ public class MyUserDetails implements UserDetails {
         return user.getEmailAddress();      //we use the User's email as the username when validating
     }
 
+    // Is the account non expired.
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    // Is the account not locked.
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    // Are the account's credentials expired.
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    // Is the account enabled.
     @Override
     public boolean isEnabled() {
         return true;
