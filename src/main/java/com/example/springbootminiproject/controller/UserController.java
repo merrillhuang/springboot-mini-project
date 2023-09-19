@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/auth/users")
 public class UserController {
 
-    @GetMapping(path = "/hello/")
+    @GetMapping(path = "/hello/")   //http://localhost:9094/auth/users/hello/
     public String hello() {
         return "Hello";
     }
