@@ -15,6 +15,12 @@ public class MyUserDetailsService implements org.springframework.security.core.u
         this.userService = userService;
     }
 
+    /**
+     * Finds the UserDetails of the user with the given email address.
+     * @param emailAddress The email address passed in by the Http request.
+     * @return A new MyUserDetails object that contains the details of the User with the given email address.
+     * @throws UsernameNotFoundException Error if a User with the given email address is not found"
+     */
     @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
         User user = userService.findUserByEmailAddress(emailAddress);
