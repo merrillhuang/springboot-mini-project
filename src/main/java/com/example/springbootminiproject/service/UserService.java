@@ -1,5 +1,6 @@
 package com.example.springbootminiproject.service;
 
+import com.example.springbootminiproject.exception.InformationExistException;
 import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
