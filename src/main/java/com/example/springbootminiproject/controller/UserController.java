@@ -28,6 +28,11 @@ public class UserController {
         return "Hello";
     }
 
+    /**
+     * Endpoint to create a new User in the database
+     * @param userObject The User passed in by the Http Request
+     * @return The User after being saved in the database
+     */
     @PostMapping(path = "/register/")   //http://localhost:9094/auth/users/register/
     public User createUser(@RequestBody User userObject) {
         return userService.createUser(userObject);
