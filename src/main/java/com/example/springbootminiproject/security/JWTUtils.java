@@ -1,11 +1,11 @@
 package com.example.springbootminiproject.security;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
@@ -15,7 +15,7 @@ public class JWTUtils {
     Logger logger = Logger.getLogger(JWTUtils.class.getName());
 
     // Key used to hash authentication token (JWT)
-    @Value("C6UlILsE6GJwNqwCTkkvJj9O653yJUoteWMLfYyrc3vaGrrTOrJFAUD1wEBnnposzcQl")
+    @Value("${jwt-secret}")
     private String jwtSecret;
 
     // JWT Token expires after 86400000 milliseconds
@@ -26,6 +26,7 @@ public class JWTUtils {
      * Generates a JWT token based on the given user after successful login
      * @param myUserDetails represents the logged in User
      * @return A JWT token generated from the logged in User's email address.
+     * Runs once on successful login
      */
     public String generateJwtToken(MyUserDetails myUserDetails) {
         return Jwts.builder()
@@ -40,8 +41,27 @@ public class JWTUtils {
      * Decodes token to retrieve the username of the current logged in User
      * @param token Token passed in by the Http request belonging to the current logged in User
      * @return The username of the current logged in user decoded from the token.
+     * Runs for every request sent after log in. Validates that the correct user is still logged in.
      */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public boolean validateJwtToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
+        } catch (SecurityException e) {
+            logger.log(Level.SEVERE, "Invalid JWT signature: {}", e.getMessage());
+        } catch (MalformedJwtException e) {
+            logger.log(Level.SEVERE, "Invalid JWT token: {}", e.getMessage());
+        } catch (ExpiredJwtException e) {
+            logger.log(Level.SEVERE, "JWT token is expired: {}", e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            logger.log(Level.SEVERE, "JWT token is unsupported: {}", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.SEVERE, "JWT claims string is empty: {}", e.getMessage());
+        }
+        return false;
     }
 }
