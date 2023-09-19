@@ -1,5 +1,6 @@
 package com.example.springbootminiproject.security;
 
+import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ public class MyUserDetailsService implements org.springframework.security.core.u
 
     @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
-        return userService.findUserByEmailAddress(emailAddress);
+        User user = userService.findUserByEmailAddress(emailAddress);
+        return new MyUserDetails(user);
     }
 }
