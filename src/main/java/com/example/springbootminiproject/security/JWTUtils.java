@@ -23,8 +23,8 @@ public class JWTUtils {
     private int jwtExpMS;
 
     /**
-     * Generates a JWT token based on the given user after successful login
-     * @param myUserDetails represents the logged in User
+     * Generates a JWT token based on the given user after successful login.
+     * @param myUserDetails Represents the logged in User.
      * @return A JWT token generated from the logged in User's email address.
      * Runs once on successful login
      */
@@ -38,8 +38,8 @@ public class JWTUtils {
     }
 
     /**
-     * Decodes token to retrieve the username of the current logged in User
-     * @param token Token passed in by the Http request belonging to the current logged in User
+     * Decodes token passed in from Http request to retrieve the username of the current logged in User.
+     * @param token Token passed in by the Http request.
      * @return The username of the current logged in user decoded from the token.
      * Runs for every request sent after log in. Validates that the correct user is still logged in.
      */
@@ -47,6 +47,11 @@ public class JWTUtils {
         return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Validates that the token passed in from the Http request is correct and is not an invalid token.
+     * @param token Token passed in by the Http request
+     * @return True if token is valid and matches, false if not.
+     */
     public boolean validateJwtToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
