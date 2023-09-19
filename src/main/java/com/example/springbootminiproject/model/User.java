@@ -1,5 +1,7 @@
 package com.example.springbootminiproject.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,4 +18,8 @@ public class User {
 
     @Column(unique = true)
     private String emailAddress;   //represents each user's email, must be unique
+
+    @Column
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;       //represents each user's password, is write-only, not visible in database
 }
