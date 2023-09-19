@@ -36,6 +36,11 @@ public class JWTUtils {
                 .compact();
     }
 
+    /**
+     * Decodes token to retrieve the username of the current logged in User
+     * @param token Token passed in by the Http request belonging to the current logged in User
+     * @return The username of the current logged in user decoded from the token.
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
     }
