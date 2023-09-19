@@ -34,6 +34,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         this.jwtUtils = jwtUtils;
     }
 
+    /**
+     * Extracts the token from the Http request
+     * @param request Represents the content of the Http request
+     * @return The JWT token if it exists, null if it does not
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (StringUtils.hasLength(headerAuth) && headerAuth.startsWith("Bearer")) {
