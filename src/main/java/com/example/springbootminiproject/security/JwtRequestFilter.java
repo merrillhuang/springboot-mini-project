@@ -53,6 +53,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
     }
 
+    /**
+     * Loads the current logged in user's details into the application's memory?
+     * @param request The request from the client.
+     * @param response The response after processing the request (e.g. 200 OK, 404 not found etc)?
+     * @param filterChain The filter that decides whether the user has access to the request endpoint?
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
