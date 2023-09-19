@@ -21,4 +21,13 @@ public class JWTUtils {
     // JWT Token expires after 86400000 milliseconds
     @Value("${jwt-expiration-ms}")
     private int jwtExpMS;
+
+    public String generateJwtToken(MyUserDetails myUserDetails) {
+        return Jwts.builder()
+                .setSubject(myUserDetails.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + jwtExpMS))
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
+                .compact();
+    }
 }
