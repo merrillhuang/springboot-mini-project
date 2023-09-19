@@ -24,6 +24,11 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Checks if given User already exists. If not, saves given User to database. If it already exists, throw error.
+     * @param userObject The User passed in by the Http request.
+     * @return The given User after it has been saved to the database, an error if the User already exists in the database.
+     */
     public User createUser(User userObject) {
         if (! userRepository.existsByEmailAddress(userObject.getEmailAddress())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
