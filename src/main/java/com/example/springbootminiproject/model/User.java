@@ -12,5 +12,8 @@ public class User {
     private Long id;        //unique auto-generated id for each user
 
     @Column
-    private String username;  //user's username
+    private String username;  //represents each user's username
+
+    @Column(unique = true)
+    private String emailAddress;   //represents each user's email, must be unique
 }
