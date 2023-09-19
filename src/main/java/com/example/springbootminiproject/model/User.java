@@ -10,4 +10,7 @@ public class User {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;        //unique auto-generated id for each user
+
+    @Column
+    private String username;  //user's username
 }
