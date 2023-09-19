@@ -4,9 +4,10 @@ import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class MyUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
     private UserService userService;
 
