@@ -14,5 +14,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     User findUserByEmailAddress(String emailAddress);
 
+    /**
+     * Checks if a User with the given email address already exists in the database.
+     * @param emailAddress The email address passed in by the HttpRequest
+     * @return True if a User with the given email address already exists, False if not.
+     */
     boolean existsByEmailAddress(String emailAddress);
 }
