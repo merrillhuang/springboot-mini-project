@@ -12,5 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param emailAddress The email address passed in by the HttpRequest
      * @return The User that has the corresponding email address.
      */
-    public User findUserByEmailAddress(String emailAddress);
+    User findUserByEmailAddress(String emailAddress);
+
+    boolean existsByEmailAddress(String emailAddress);
 }
