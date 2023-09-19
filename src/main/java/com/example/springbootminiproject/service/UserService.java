@@ -49,6 +49,11 @@ public class UserService {
         }
     }
 
+    /**
+     * Logs in a User and makes it the current logged in User if the given email address and password match an entry in the database.
+     * @param loginRequest The Http request sent by the user.
+     * @return A token generated from the User's Details if log in is sucessful, an empty Optional if unsucessful.
+     */
     public Optional<String> loginUser(LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmailAddress(), loginRequest.getPassword());
