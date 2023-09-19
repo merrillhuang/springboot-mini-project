@@ -2,6 +2,7 @@ package com.example.springbootminiproject.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -31,6 +32,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     public void setJwtUtils(JWTUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
+    }
+
+    private String parseJwt(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+        if (StringUtils.hasLength(headerAuth) && headerAuth.startsWith("Bearer")) {
+            return headerAuth.substring(7);
+        } else {
+            logger.info("No header");
+            return null;
+        }
     }
 
     @Override
