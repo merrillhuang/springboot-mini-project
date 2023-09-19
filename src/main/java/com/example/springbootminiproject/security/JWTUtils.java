@@ -22,6 +22,11 @@ public class JWTUtils {
     @Value("${jwt-expiration-ms}")
     private int jwtExpMS;
 
+    /**
+     * Generates a JWT token based on the given user after successful login
+     * @param myUserDetails represents the logged in User
+     * @return A JWT token generated from the logged in User's email address.
+     */
     public String generateJwtToken(MyUserDetails myUserDetails) {
         return Jwts.builder()
                 .setSubject(myUserDetails.getUsername())
