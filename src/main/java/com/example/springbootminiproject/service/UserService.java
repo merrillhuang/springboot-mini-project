@@ -28,6 +28,7 @@ public class UserService {
 
     private final AuthenticationManager authenticationManager;
 
+    // Generates instances of all the fields
     @Autowired
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils, @Lazy AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
