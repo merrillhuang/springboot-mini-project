@@ -1,5 +1,7 @@
 package com.example.springbootminiproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,11 @@ public class Book {
 
     @Column
     private int pages;
+
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    @JsonIgnore
+    private Genre genre;
 
     // Default no args constructor
     public Book() {
