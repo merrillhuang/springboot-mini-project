@@ -1,5 +1,7 @@
 package com.example.springbootminiproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,11 @@ public class Genre {
 
     @Column
     private boolean adult;  // Denotes whether a Genre is intended for adults
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore     // Prevents recursively loading User, which loads a list of Genres, which each load a User, and so on
+    private User user;
 
     // No args default constructor
     public Genre() {
