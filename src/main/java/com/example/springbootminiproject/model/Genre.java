@@ -1,8 +1,11 @@
 package com.example.springbootminiproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Genre {
@@ -22,6 +25,10 @@ public class Genre {
     @JoinColumn(name = "user_id")
     @JsonIgnore     // Prevents recursively loading User, which loads a list of Genres, which each load a User, and so on
     private User user;
+
+    @OneToMany(mappedBy = "genre", orphanRemoval = true)    // If a Genre is removed from the database, all of its Books are removed as well
+    @LazyCollection(LazyCollectionOption.FALSE)     // Eagerly fetches bookList, bookList is loaded automatically when a User is loaded
+    private List<Book> bookList;
 
     // No args default constructor
     public Genre() {
