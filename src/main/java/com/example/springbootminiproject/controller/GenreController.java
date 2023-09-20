@@ -24,8 +24,18 @@ public class GenreController {
         return genreService.getGenres();
     }
 
-    @GetMapping(path = "/genres/{genreId}") // http://localhost:9094/api/genres/1/
+    @GetMapping(path = "/genres/{genreId}")     // http://localhost:9094/api/genres/1/
     public Optional<Genre> getGenre(@PathVariable(value = "genreId") Long genreId) {
         return genreService.getGenreById(genreId);
+    }
+
+    @PostMapping(path = "/genres/")  // http://localhost:9094/api/genres/
+    public Genre createGenre(@RequestBody Genre genreObject) {
+        return genreService.createGenre(genreObject);
+    }
+
+    @PutMapping(path = "/genres/{genreId}")     // http://localhost:9094/api/genres/1/
+    public Genre updateGenreById(@PathVariable(value = "genreId") Long genreId, @RequestBody Genre genreObject) {
+        return genreService.updateGenreById(genreId, genreObject);
     }
 }

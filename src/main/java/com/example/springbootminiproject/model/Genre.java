@@ -58,7 +58,7 @@ public class Genre {
         this.name = name;
     }
 
-    public boolean isAdult() {
+    public boolean getAdult() {
         return adult;
     }
 
