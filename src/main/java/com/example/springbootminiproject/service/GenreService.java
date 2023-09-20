@@ -148,4 +148,18 @@ public class GenreService {
             throw new InformationNotFoundException("Genre with id " + genreId + " not found");
         }
     }
+
+    /**
+     * Finds all Books under given genreId if the Genre exists.
+     * @param genreId The is passed in by the Http request
+     * @return A list of Books belonging to the Genre with given genreId.
+     */
+    public List<Book> getAllBooksFromGenre(Long genreId) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        if (genreOptional.isPresent()) {
+            return genreOptional.get().getBookList();
+        } else {
+            throw new InformationNotFoundException("Genre with id " + genreId + " not found");
+        }
+    }
 }

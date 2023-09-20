@@ -49,4 +49,9 @@ public class GenreController {
     public Book createBookInGenre(@PathVariable(value = "genreId") Long genreId, @RequestBody Book bookObject) {
         return genreService.createBookInGenre(genreId, bookObject);
     }
+
+    @GetMapping(path = "/genres/{genreId}/books/")     //http://localhost:9094/api/genres/1/books/
+    public List<Book> getAllBooksFromGenre(@PathVariable(value = "genreId") Long genreId) {
+        return genreService.getAllBooksFromGenre(genreId);
+    }
 }
