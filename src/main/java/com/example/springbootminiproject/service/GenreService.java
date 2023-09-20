@@ -1,8 +1,11 @@
 package com.example.springbootminiproject.service;
 
+import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.repository.BookRepository;
 import com.example.springbootminiproject.repository.GenreRepository;
+import com.example.springbootminiproject.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
@@ -27,5 +30,10 @@ public class GenreService {
     @Autowired
     public void setBookRepository(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
+    }
+
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
     }
 }
