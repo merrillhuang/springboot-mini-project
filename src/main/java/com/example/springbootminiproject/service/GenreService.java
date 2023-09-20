@@ -219,4 +219,25 @@ public class GenreService {
             throw new InformationNotFoundException("genre with id " + genreId + " not found");
         }
     }
+
+    /**
+     * Deletes the Book with given bookId under Genre with given genreId if both Book and Genre exist.
+     * @param genreId   The genreId passed in by the Http request
+     * @param bookId    The bookId passed in by the http request
+     * @return The deleted Book if both Book with bookId and Genre with genreId exist, errors otherwise.
+     */
+    public Optional<Book> deleteBookFromGenreById(Long genreId, Long bookId) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        if (genreOptional.isPresent()) {
+            Optional<Book> bookOptional = bookRepository.findById(bookId);
+            if (bookOptional.isPresent()) {
+                bookRepository.deleteById(bookId);
+                return bookOptional;
+            } else {
+                throw new InformationNotFoundException("book with id " + bookId + " under " + genreId + " not found");
+            }
+        } else {
+            throw new InformationNotFoundException("genre with id " + genreId + " not found");
+        }
+    }
 }
