@@ -1,5 +1,7 @@
 package com.example.springbootminiproject.service;
 
+import com.example.springbootminiproject.exception.InformationNotFoundException;
+import com.example.springbootminiproject.model.Genre;
 import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.repository.BookRepository;
 import com.example.springbootminiproject.repository.GenreRepository;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -39,5 +42,18 @@ public class GenreService {
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
+    }
+
+    /**
+     * Runs a SQL query for all Genres in genres table that have the User id of the current logged in User.
+     * @return The list of the current User's Genres if found, error if not found.
+     */
+    public List<Genre> getGenres() {
+        List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
+        if (genreList.isEmpty()) {
+            throw new InformationNotFoundException("No saved Genres found under User id " + GenreService,getCurrentLoggedInUser().getId() + ".");
+        } else {
+            return genreList;
+        }
     }
 }
