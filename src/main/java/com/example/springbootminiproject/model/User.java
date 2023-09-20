@@ -26,8 +26,8 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;       //represents each user's password, is write-only, not visible in database
 
-    @OneToMany(mappedBy = "user")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user")   // Each user has a list of Genres, one User to Many Genres
+    @LazyCollection(LazyCollectionOption.FALSE)  // Eagerly fetches genreList, genreList is loaded automatically when a User is loaded
     private List<Genre> genreList;
 
     @OneToMany(mappedBy = "user")
