@@ -22,10 +22,11 @@ public class Book {
     @Column
     private int pages;
 
-    @ManyToOne
-    @JoinColumn(name = "genre_id")
-    @JsonIgnore
+    @ManyToOne      // Many Books belong to One Genre
+    @JoinColumn(name = "genre_id")      // Name of foreign key (to genres table) column is genre_id
+    @JsonIgnore     // Prevents recursively loading Genre, which loads a list of Books, which each load a Genre, and so on
     private Genre genre;
+
 
     // Default no args constructor
     public Book() {
