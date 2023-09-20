@@ -25,6 +25,7 @@ public class UserController {
 
     @GetMapping(path = "/hello/")   //http://localhost:9094/auth/users/hello/
     public String hello() {
+        // add check for current logged in user?
         return "Hello";
     }
 
