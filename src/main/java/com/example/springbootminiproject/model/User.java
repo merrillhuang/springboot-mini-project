@@ -30,6 +30,10 @@ public class User {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Genre> genreList;
 
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Book> bookList;
+
     //default no args constructor
     public User() {
     }
