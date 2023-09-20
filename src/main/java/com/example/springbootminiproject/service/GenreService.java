@@ -14,13 +14,16 @@ public class GenreService {
 
     private BookRepository bookRepository;
 
+    // Creates a logger for this class
     Logger logger = Logger.getLogger(GenreService.class.getName());
 
+    // Creates a GenreRepository instance
     @Autowired
     public void setGenreRepository(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
 
+    // Creates a BookRepository instance
     @Autowired
     public void setBookRepository(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
