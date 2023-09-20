@@ -51,7 +51,7 @@ public class GenreService {
     public List<Genre> getGenres() {
         List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
         if (genreList.isEmpty()) {
-            throw new InformationNotFoundException("No saved Genres found under User id " + GenreService,getCurrentLoggedInUser().getId() + ".");
+            throw new InformationNotFoundException("No saved Genres found under User id " + GenreService.getCurrentLoggedInUser().getId() + ".");
         } else {
             return genreList;
         }
