@@ -21,8 +21,8 @@ public class Genre {
     @Column
     private boolean adult;  // Denotes whether a Genre is intended for adults
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne      // Many Genres belong to One User
+    @JoinColumn(name = "user_id")       // Name of foreign key (to users table) column is user_id
     @JsonIgnore     // Prevents recursively loading User, which loads a list of Genres, which each load a User, and so on
     private User user;
 
