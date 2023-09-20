@@ -65,6 +65,22 @@ public class Genre {
         this.adult = adult;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
+
     @Override
     public String toString() {
         return "Genre{" +
