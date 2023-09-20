@@ -27,11 +27,11 @@ public class User {
     private String password;       //represents each user's password, is write-only, not visible in database
 
     @OneToMany(mappedBy = "user")   // Each user has a list of Genres, one User to Many Genres
-    @LazyCollection(LazyCollectionOption.FALSE)  // Eagerly fetches genreList, genreList is loaded automatically when a User is loaded
+    @LazyCollection(LazyCollectionOption.FALSE)     // Eagerly fetches genreList, genreList is loaded automatically when a User is loaded
     private List<Genre> genreList;
 
-    @OneToMany(mappedBy = "user")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "user")    // Each user has a list of Books, one User to Many Books
+    @LazyCollection(LazyCollectionOption.FALSE)     // Eagerly fetches bookList, bookList is loaded automatically when a User is loaded
     private List<Book> bookList;
 
     //default no args constructor
@@ -76,6 +76,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Genre> getGenreList() {
+        return genreList;
+    }
+
+    public void setGenreList(List<Genre> genreList) {
+        this.genreList = genreList;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 
     @Override
