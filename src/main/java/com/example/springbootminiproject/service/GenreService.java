@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
@@ -51,9 +52,23 @@ public class GenreService {
     public List<Genre> getGenres() {
         List<Genre> genreList = genreRepository.findByUserId(GenreService.getCurrentLoggedInUser().getId());
         if (genreList.isEmpty()) {
-            throw new InformationNotFoundException("No saved Genres found under User id " + GenreService.getCurrentLoggedInUser().getId() + ".");
+            throw new InformationNotFoundException("No saved genres found under user id " + GenreService.getCurrentLoggedInUser().getId() + ".");
         } else {
             return genreList;
+        }
+    }
+
+    /**
+     * Finds a certain genre belonging to the current logged in user by the genre id number.
+     * @param genreId The genreId passed in by the Http request.
+     * @return An optional containing the found Genre, or an error.
+     */
+    public Optional<Genre> getGenreById(Long genreId) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        if (genreOptional.isPresent()) {
+            return genreOptional;
+        } else {
+            throw new InformationNotFoundException("No genre with genre id " + genreId + " found under user with id " + GenreService.getCurrentLoggedInUser().getId() + ".");
         }
     }
 }
