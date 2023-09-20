@@ -27,6 +27,11 @@ public class Book {
     @JsonIgnore     // Prevents recursively loading Genre, which loads a list of Books, which each load a Genre, and so on
     private Genre genre;
 
+    @ManyToOne      // Many Books belong to One User
+    @JoinColumn(name = "user_id")       // Name of foreign key (to users table) column is user_id
+    @JsonIgnore     // Prevents recursively loading User, which loads a list of Books, which each load a User, and so on
+    private User user;
+
 
     // Default no args constructor
     public Book() {
