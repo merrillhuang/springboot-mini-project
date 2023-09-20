@@ -54,4 +54,9 @@ public class GenreController {
     public List<Book> getAllBooksFromGenre(@PathVariable(value = "genreId") Long genreId) {
         return genreService.getAllBooksFromGenre(genreId);
     }
+
+    @GetMapping(path = "/genres/{genreId}/books/{bookId}/")     //http://localhost:9094/api/genres/1/books/1/
+    public Book getBookFromGenreById(@PathVariable(value = "genreId") Long genreId, @PathVariable (value = "bookId") Long bookId){
+        return genreService.getBookFromGenreById(genreId, bookId);
+    }
 }

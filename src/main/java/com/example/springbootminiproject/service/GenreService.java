@@ -162,4 +162,29 @@ public class GenreService {
             throw new InformationNotFoundException("Genre with id " + genreId + " not found");
         }
     }
+
+    /**
+     * Finds the Book with given bookId under Genre with given genre Id if both the Book and Genre exist.
+     * @param genreId The genreId passed in by the Http request
+     * @param bookId  The bookId passed in by the http request
+     * @return A Book with given bookId under Genre with given genreId if both exist, errors otherwise.
+     */
+    public Book getBookFromGenreById(Long genreId, Long bookId) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        if (genreOptional.isPresent()) {
+            Optional<Book> bookOptional = bookRepository.findById(bookId);
+            if (bookOptional.isPresent()) {
+                if (bookOptional.get().getGenre().getId().equals(genreId)) {
+                    return bookOptional.get();
+                }
+                else {
+                    throw new InformationNotFoundException("book with id " + bookId + " under " + genreId + " not found");
+                }
+            } else {
+                throw new InformationNotFoundException("book with id " + bookId + " under " + genreId + " not found");
+            }
+        } else {
+            throw new InformationNotFoundException("genre with id " + genreId + " not found");
+        }
+    }
 }
