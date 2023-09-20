@@ -109,4 +109,19 @@ public class GenreService {
             throw new InformationNotFoundException("Genre with id " + genreId + " not found under current user.");
         }
     }
+
+    /**
+     * Deletes the Genre with the given id from the database if it exists.
+     * @param genreId The id of the Genre to delete.
+     * @return The deleted Genre if it exists, error if it doesn't/
+     */
+    public Optional<Genre> deleteGenreById(Long genreId) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        if (genreOptional.isPresent()) {
+            genreRepository.deleteById(genreId);
+            return genreOptional;
+        } else {
+            throw new InformationNotFoundException("Genre with id " + genreId + " not found under current user.");
+        }
+    }
 }
