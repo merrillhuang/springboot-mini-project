@@ -187,4 +187,36 @@ public class GenreService {
             throw new InformationNotFoundException("genre with id " + genreId + " not found");
         }
     }
+
+    /**
+     * Updates Book with given bookId under Genre with given GenreId with given details if both the Book and Genre exist and the given details are different.
+     * @param genreId  The genreId passed in by the Http request
+     * @param bookId  The bookId passed in by the http request
+     * @param bookObject  The Book passed in by the Http request with details that current Book's details need to be altered to match.
+     * @return  The Book with altered details after saving to the database if both Book and Genre exist and given details are different, errors otherhwise.
+     */
+    public Book updateBookFromGenreById(Long genreId, Long bookId, Book bookObject) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        if (genreOptional.isPresent()) {
+            Optional<Book> bookOptional = bookRepository.findById(bookId);
+            if (bookOptional.isPresent()) {
+                if (
+                        bookObject.getTitle().equals(bookOptional.get().getTitle()) &&
+                                bookObject.getAuthor().equals(bookOptional.get().getAuthor()) &&
+                                bookObject.getPages() == bookOptional.get().getPages())
+                {
+                    throw new InformationExistException("book with id " + bookId + " under " + genreId + " does not need to be updated");
+                } else {
+                    bookObject.setId(bookId);
+                    bookObject.setGenre(genreOptional.get());
+                    bookObject.setUser(GenreService.getCurrentLoggedInUser());
+                    return bookRepository.save(bookObject);
+                }
+            } else {
+                throw new InformationNotFoundException("book with id " + bookId + " under " + genreId + " not found");
+            }
+        } else {
+            throw new InformationNotFoundException("genre with id " + genreId + " not found");
+        }
+    }
 }
