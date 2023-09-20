@@ -32,6 +32,10 @@ public class GenreService {
         this.bookRepository = bookRepository;
     }
 
+    /**
+     * Gets the current logged in User from the application's memory
+     * @return The User that is currently logged in.
+     */
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
