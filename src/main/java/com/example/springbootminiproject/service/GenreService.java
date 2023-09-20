@@ -2,6 +2,7 @@ package com.example.springbootminiproject.service;
 
 import com.example.springbootminiproject.exception.InformationExistException;
 import com.example.springbootminiproject.exception.InformationNotFoundException;
+import com.example.springbootminiproject.model.Book;
 import com.example.springbootminiproject.model.Genre;
 import com.example.springbootminiproject.model.User;
 import com.example.springbootminiproject.repository.BookRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -66,7 +68,7 @@ public class GenreService {
      */
     public Optional<Genre> getGenreById(Long genreId) {
         Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
-        if (genreOptional.isPresent()) {
+        if (! genreOptional.isEmpty()) {
             return genreOptional;
         } else {
             throw new InformationNotFoundException("No genre with genre id " + genreId + " found under user with id " + GenreService.getCurrentLoggedInUser().getId() + ".");
@@ -122,6 +124,22 @@ public class GenreService {
             return genreOptional;
         } else {
             throw new InformationNotFoundException("Genre with id " + genreId + " not found under current user.");
+        }
+    }
+
+    public Book createBookInGenre(Long genreId, Book bookObject) {
+        Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
+        if (genreOptional.isPresent()) {
+            Book book = (bookRepository.findByTitle(bookObject.getTitle()));
+            if (book != null) {
+                throw new InformationExistException("Book with name " + bookObject.getTitle() + " already exists.");
+            } else {
+                bookObject.setGenre(genreOptional.get());
+                bookObject.setUser(GenreService.getCurrentLoggedInUser());
+                return bookRepository.save(bookObject);
+            }
+        } else {
+            throw new InformationNotFoundException("Genre with id " + genreId + " not found");
         }
     }
 }

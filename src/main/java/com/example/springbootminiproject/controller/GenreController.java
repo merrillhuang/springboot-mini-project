@@ -1,5 +1,6 @@
 package com.example.springbootminiproject.controller;
 
+import com.example.springbootminiproject.model.Book;
 import com.example.springbootminiproject.model.Genre;
 import com.example.springbootminiproject.service.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,13 @@ public class GenreController {
         return genreService.updateGenreById(genreId, genreObject);
     }
 
-    @DeleteMapping(path = "/categories/{genreId}") // http://localhost:9094/api/genres/1/
-    public Optional<Genre> deletegenre(@PathVariable(value = "genreId") Long genreId) {
+    @DeleteMapping(path = "/genres/{genreId}") // http://localhost:9094/api/genres/1/
+    public Optional<Genre> deleteGenreById(@PathVariable(value = "genreId") Long genreId) {
         return genreService.deleteGenreById(genreId);
+    }
+
+    @PostMapping(path = "/genres/{genreId}/books/") // http://localhost:9094/api/genres/1/books/
+    public Book createBookInGenre(@PathVariable(value = "genreId") Long genreId, @RequestBody Book bookObject) {
+        return genreService.createBookInGenre(genreId, bookObject);
     }
 }
