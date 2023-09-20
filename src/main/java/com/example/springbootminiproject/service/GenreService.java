@@ -127,6 +127,12 @@ public class GenreService {
         }
     }
 
+    /**
+     * Creates a Book belonging to Genre with genreId if it doesn't exist in the database already.
+     * @param genreId The id passed in from the Http request
+     * @param bookObject The Book passed in from the Http request
+     * @return The book after it is saved to the database if the Genre exists and the book doesn't already exist, errors otherwise.
+     */
     public Book createBookInGenre(Long genreId, Book bookObject) {
         Optional<Genre> genreOptional = Optional.of(genreRepository.findByIdAndUserId(genreId, GenreService.getCurrentLoggedInUser().getId()));
         if (genreOptional.isPresent()) {
