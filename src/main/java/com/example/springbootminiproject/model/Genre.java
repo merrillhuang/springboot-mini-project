@@ -26,7 +26,7 @@ public class Genre {
     @JsonIgnore     // Prevents recursively loading User, which loads a list of Genres, which each load a User, and so on
     private User user;
 
-    @OneToMany(mappedBy = "genre", orphanRemoval = true)    // If a Genre is removed from the database, all of its Books are removed as well
+    @OneToMany(mappedBy = "genre", orphanRemoval = true)    // One Genre has Many Books, If a Genre is removed from the database, all of its Books are removed as well
     @LazyCollection(LazyCollectionOption.FALSE)     // Eagerly fetches bookList, bookList is loaded automatically when a User is loaded
     private List<Book> bookList;
 
