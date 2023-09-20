@@ -1,2 +1,4 @@
-package com.example.springbootminiproject.controller;public class GenreController {
+package com.example.springbootminiproject.controller;
+
+public class GenreController {
 }
